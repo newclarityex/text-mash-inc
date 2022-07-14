@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { onMount } from "svelte";
     export let increaseBuffer: (amt: number) => void;
     let currentCharacters = 0;
 
@@ -6,6 +7,16 @@
         text: string;
         incoming: boolean;
     }[] = [];
+
+    onMount(() => {
+        const messageInput = document.getElementById(
+            "message-input"
+        ) as HTMLInputElement;
+        messageInput.onpaste = (e) => {
+            e.preventDefault();
+            return false;
+        };
+    });
 
     function handleMessageSubmit(event: KeyboardEvent) {
         if (event.key !== "Enter") {
@@ -73,6 +84,7 @@
                 placeholder="Type a message..."
                 on:keypress={handleMessageSubmit}
                 on:input={handleInputUpdate}
+                id="message-input"
             />
         </div>
     </div>
