@@ -8,8 +8,54 @@
         (multiplier - Math.floor(multiplier)) * 100
     );
     let maxMultiplier = 3;
-    const multiplierModifier = 0.01;
+    let multiplierModifier = 0.01;
     const multiplierLoss = 0.01;
+
+    const upgrades = [
+        {
+            name: "Increase Max Multiplier",
+            cost: 500,
+            function: () => {
+                maxMultiplier = 4;
+            },
+            unlocked: false,
+        },
+        {
+            name: "Increase Max Multiplier",
+            cost: 1000,
+            function: () => {
+                maxMultiplier = 5;
+            },
+            unlocked: false,
+            require: 0,
+        },
+        {
+            name: "Increase Max Multiplier",
+            cost: 1500,
+            function: () => {
+                maxMultiplier = 6;
+            },
+            unlocked: false,
+            require: 1,
+        },
+        {
+            name: "Increase Max Multiplier",
+            cost: 3000,
+            function: () => {
+                maxMultiplier = 7;
+            },
+            unlocked: false,
+            require: 2,
+        },
+        {
+            name: "Increase Multiplier Speed",
+            cost: 300,
+            function: () => {
+                multiplierModifier = 0.02;
+            },
+            unlocked: false,
+        },
+    ];
 
     setInterval(() => {
         multiplier = Math.max(1, multiplier - multiplierLoss);
@@ -59,7 +105,7 @@
         </h1>
     </div>
     <h1 class="my-4 text-3xl text-white">Multiplier</h1>
-    <div class="w-3/4 bg-white relative">
+    <div class="w-3/4 bg-gray-500 relative">
         <div
             class="absolute h-full top-0 left-0 transition-all duration-100 ease-linear z-0"
             class:bg-green-400={Math.floor(multiplier) === 1}
@@ -67,7 +113,7 @@
             class:bg-orange-400={Math.floor(multiplier) === 3}
             class:bg-red-400={Math.floor(multiplier) === 4}
             class:bg-purple-400={Math.floor(multiplier) === 5}
-            class:bg-gray-900={Math.floor(multiplier) === 6}
+            class:bg-gray-900={Math.floor(multiplier) >= 6}
             style="width: {multiplierProgress}%"
         />
         <div
@@ -77,5 +123,25 @@
         >
             {multiplier.toFixed(1)}x
         </div>
+    </div>
+    <div class="grow w-3/4 items-start justify-start py-12">
+        {#each upgrades as upgrade}
+            {#if upgrade.unlocked === false && (upgrade.require === undefined || upgrades[upgrade.require].unlocked === true)}
+                <button
+                    class="m-4 py-4 px-6 bg-green-600 rounded-2xl"
+                    class:bg-red-500={upgrade.cost > characters}
+                    on:click={() => {
+                        if (characters < upgrade.cost) {
+                            return;
+                        }
+                        characters -= upgrade.cost;
+                        upgrade.function();
+                        upgrade.unlocked = true;
+                    }}
+                    ><div class="text-white text-xl mb-1">{upgrade.name}</div>
+                    <div class="text-white text-md">Cost: {upgrade.cost}</div>
+                </button>
+            {/if}
+        {/each}
     </div>
 </div>
