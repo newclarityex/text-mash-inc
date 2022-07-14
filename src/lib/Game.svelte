@@ -61,7 +61,7 @@
     <h1 class="my-4 text-3xl text-white">Multiplier</h1>
     <div class="w-3/4 bg-white relative">
         <div
-            class="absolute h-full top-0 left-0 transition-all duration-200 ease-linear z-0"
+            class="absolute h-full top-0 left-0 transition-all duration-100 ease-linear z-0"
             class:bg-green-400={Math.floor(multiplier) === 1}
             class:bg-yellow-400={Math.floor(multiplier) === 2}
             class:bg-orange-400={Math.floor(multiplier) === 3}

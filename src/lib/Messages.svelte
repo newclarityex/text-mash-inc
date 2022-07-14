@@ -46,9 +46,9 @@
         class="h-4/5 w-2/3 flex flex-col items-center bg-stone-300 rounded-3xl px-4 relative overflow-hidden"
     >
         <div
-            class="absolute top-0 left-0 w-full bg-blue-600 shadow-2xl py-6 text-center text-3xl text-white z-10"
+            class="absolute top-0 left-0 w-full bg-blue-900 shadow-2xl py-6 text-center text-3xl text-white z-10 font-semibold"
         >
-            Mother
+            UwU
         </div>
         <div class="grow relative w-full overflow-hidden">
             <ul
